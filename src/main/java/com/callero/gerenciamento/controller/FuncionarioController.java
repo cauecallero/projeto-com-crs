@@ -4,6 +4,10 @@
  */
 package com.callero.gerenciamento.controller;
 
+import ch.qos.logback.core.model.Model;
+import com.callero.gerenciamento.service.FuncionarioService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,8 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FuncionarioController {
     
+    @Autowired
+    private FuncionarioService service;
+    
     @GetMapping("/funcionarios")
-    public String GetFuncionarios() {
+    public String GetFuncionarios(Model model) {
+        List<FuncionarioBean> lista = service.lerTodos();
+        model.addAttribute("lista", lista);
         return "funcionarios";
         
     }  
